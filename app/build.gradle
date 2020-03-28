@@ -9,6 +9,10 @@ android {
         versionCode 1
         versionName "1.0.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        ndk {
+            //设置支持的SO库架构
+            abiFilters 'armeabi', 'x86'
+        }
     }
     buildTypes {
         release {
@@ -44,4 +48,7 @@ dependencies {
     implementation 'com.jakewharton:butterknife:10.2.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
     implementation files('libs/ksoap2-android-assembly-3.6.4.jar')
+    //bugly
+    implementation 'com.tencent.bugly:crashreport_upgrade:1.4.2'
+    implementation 'com.tencent.bugly:nativecrashreport:3.1.0'
 }

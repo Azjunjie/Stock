@@ -1,8 +1,14 @@
 package com.aitewei.stock.activity;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -47,6 +53,16 @@ public class MainActivity extends BaseActivity {
     protected void initData() {
         fragmentManager = getSupportFragmentManager();
         showFragment(0);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED
+                    || ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
+                    != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE
+                        , Manifest.permission.READ_PHONE_STATE}, 1000);
+            }
+        }
     }
 
     @OnClick({R.id.btn_home, R.id.btn_optimal_index, R.id.btn_trend_structure, R.id.btn_open_account})
