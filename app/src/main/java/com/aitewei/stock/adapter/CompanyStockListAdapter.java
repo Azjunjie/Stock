@@ -26,7 +26,6 @@ public class CompanyStockListAdapter extends AbsBaseListViewAdapter<CompanyStock
         viewHolder.setViewText(R.id.tv_sylpm, bean.get收益率排名() + "");
         viewHolder.setViewText(R.id.tv_cglpm, bean.get成功率排名() + "");
         viewHolder.setViewText(R.id.tv_cgcb, bean.get持股持币() + "");
-        viewHolder.setViewText(R.id.tv_code, bean.get公司代码() + "");
         viewHolder.setViewText(R.id.tv_gsdm, bean.get公式代码() + "");
         viewHolder.setViewText(R.id.tv_gszq, bean.get公式周期() + "");
         viewHolder.setViewText(R.id.tv_zycs, bean.get最优参数() + "");

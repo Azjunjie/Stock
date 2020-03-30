@@ -1,13 +1,16 @@
 package com.aitewei.stock.activity;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -17,12 +20,15 @@ import com.aitewei.stock.fragment.HomeFragment;
 import com.aitewei.stock.fragment.OpenAccountFragment;
 import com.aitewei.stock.fragment.OptimalIndexFragment;
 import com.aitewei.stock.fragment.TrendStructureFragment;
+import com.aitewei.stock.utils.ScreenUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity {
 
+    @BindView(R.id.parent_view)
+    FrameLayout parentView;
     @BindView(R.id.btn_home)
     LinearLayout btnHome;
     @BindView(R.id.btn_optimal_index)
@@ -65,9 +71,12 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    @OnClick({R.id.btn_home, R.id.btn_optimal_index, R.id.btn_trend_structure, R.id.btn_open_account})
+    @OnClick({R.id.btn_qr_code, R.id.btn_home, R.id.btn_optimal_index, R.id.btn_trend_structure, R.id.btn_open_account})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.btn_qr_code://二维码
+                showQrCodePopup();
+                break;
             case R.id.btn_home://首页
                 showFragment(0);
                 break;
@@ -141,6 +150,21 @@ public class MainActivity extends BaseActivity {
             transaction.hide(structureFragment);
         if (accountFragment != null)
             transaction.hide(accountFragment);
+    }
+
+    private PopupWindow qrCodePopup;
+
+    private void showQrCodePopup() {
+        if (qrCodePopup == null) {
+            View view = LayoutInflater.from(this).inflate(R.layout.popup_qr_code, null);
+            qrCodePopup = new PopupWindow(view, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            qrCodePopup.setOnDismissListener(() -> ScreenUtils.setBackgroundAlpha(this, 1f));
+            qrCodePopup.setFocusable(true);
+            qrCodePopup.setTouchable(true);
+            qrCodePopup.setOutsideTouchable(true);
+        }
+        ScreenUtils.setBackgroundAlpha(this, 0.5f);
+        qrCodePopup.showAtLocation(parentView, Gravity.CENTER, 0, 0);
     }
 
 }

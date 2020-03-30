@@ -43,14 +43,6 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/tv_code"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textColor="@color/h2"
-            android:textSize="16sp" />
-
-        <TextView
             android:id="@+id/tv_gsdm"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
